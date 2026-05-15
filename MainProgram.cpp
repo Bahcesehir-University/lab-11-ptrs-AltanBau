@@ -52,7 +52,7 @@ int* getAddress(int* p)
     // TODO 1: return p
 
 
-    return nullptr; // placeholder -- replace this line
+    return p; // placeholder -- replace this line
 }
 
 // ------------------------------------------------------------
@@ -66,8 +66,7 @@ int readValue(const int* p)
 {
     // TODO 2: dereference p and return the value
 
-
-    return -1; // placeholder -- replace this line
+    return *p; // placeholder -- replace this line
 }
 
 void section1_warmup()
@@ -111,7 +110,8 @@ void section1_warmup()
 void writeValue(int* p, int newVal)
 {
     // TODO 3: write newVal into the memory location p points to
-
+    *p = newVal;
+    
 }
 
 // ------------------------------------------------------------
@@ -127,8 +127,7 @@ bool isNullptr(int* p)
 {
     // TODO 4: compare p to nullptr and return the result
 
-
-    return false; // placeholder -- replace this line
+    return p == nullptr; // placeholder -- replace this line
 }
 
 // ------------------------------------------------------------
@@ -143,6 +142,8 @@ bool isNullptr(int* p)
 void addThroughPointer(double* p, double amount)
 {
     // TODO 5: add 'amount' to *p
+    *p += amount; 
+ 
 
 }
 
@@ -191,6 +192,10 @@ void swapInts(int* a, int* b)
 {
     // TODO 3a: Swap the values that a and b point to.
     //          HINT: you need a temporary variable.
+    
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 
 }
 
@@ -226,9 +231,9 @@ void exercise3a_swap()
 int getElementByOffset(const int* ptr, int offset)
 {
     // TODO 3b: use *(ptr + offset) to return the element
-
-
-    return -1; // placeholder -- replace this line
+    
+    
+    return *(ptr + offset); // placeholder -- replace this line
 }
 
 void exercise3b_pointer_arithmetic()
@@ -261,7 +266,10 @@ void exercise3b_pointer_arithmetic()
 void fillArray(int* arr, int size)
 {
     // TODO 3c-i: Use a loop. Access elements via arr[i] OR *(arr+i).
-
+    for(int i = 0; i < size; i++){
+        *(arr + i) = i * 10;
+    }
+    
 }
 
 // TODO 3c-ii: Implement sumArray.
@@ -271,7 +279,12 @@ void fillArray(int* arr, int size)
 int sumArray(const int* arr, int size)
 {
     // TODO 3c-ii: accumulate and return the sum.
-    return 0; // placeholder -- replace this
+    int sum = 0;
+    for(int i = 0; i < size; i++){
+        sum += *(arr + i);
+    }
+    
+    return sum; // placeholder -- replace this
 }
 
 void exercise3c_array_pointer()
@@ -293,7 +306,17 @@ void exercise3c_array_pointer()
 void findMinMax(const int* arr, int size, int* minVal, int* maxVal)
 {
     // TODO 4a: initialise *minVal and *maxVal with arr[0], then loop.
-
+    *minVal = arr[0];
+    *maxVal = arr[0];
+    
+    for(int i = 0; i < size; i++){
+        if(arr[i] <= *minVal){
+            *minVal = arr[i];
+        }
+        if(arr[i] >= *maxVal){
+            *maxVal = arr[i];
+        }
+    }
 }
 
 void challengeA_minMax()
@@ -310,7 +333,17 @@ void reverseArray(int* arr, int size)
 {
     // TODO 4b: left = arr,  right = arr + size - 1
     //          while left < right: swap, then left++, right--
-
+    
+    int *left = arr;
+    int *right = arr + size - 1;
+    
+    while(left < right){
+        int temp = *left;
+        *left = *right;
+        *right = temp;
+        left++;
+        right--;
+    }
 }
 
 void challengeB_reverse()
